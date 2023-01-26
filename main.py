@@ -51,7 +51,7 @@ async def on_message(message):
         stack = card2numbers.Aronson
         await trainStack(message, stack)
 
-    if "/train" in message.content:
+    if "/training" in message.content:
         if message.channel.name == "memorandum":
             stack = card2numbers.Memorandum
         elif message.channel.name == "mnemonica":
