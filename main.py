@@ -29,11 +29,7 @@ async def trainStack(message, stack):
         time.sleep(5)
     await message.channel.send(number)
 
-@client.event
-async def on_message(message):
-
-    if message.author == client.user:
-        return
+async def checkMessage(message):
 
     if "/memorandum" in message.content:
         stack = card2numbers.Memorandum
@@ -63,6 +59,14 @@ async def on_message(message):
         else:
             return
         await trainStack(message, stack)
+
+@client.event
+async def on_message(message):
+
+    if message.author == client.user:
+        return
+
+    await checkMessage(message)
 
 if __name__ == "__main__":
     TOKEN = os.environ["TOKEN"]
