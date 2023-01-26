@@ -65,8 +65,7 @@ async def on_message(message):
         await trainStack(message, stack)
 
 if __name__ == "__main__":
-    with open("token.txt", "r") as f:
-        TOKEN = f.read()
+    TOKEN = os.environ["TOKEN"]
     try:
         keep_alive()
         client.run(TOKEN)
