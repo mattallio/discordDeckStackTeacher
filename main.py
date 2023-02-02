@@ -43,6 +43,10 @@ async def on_message(message):
         stack = card2numbers.Mnemonica
         await trainStack(message, stack)
 
+    if ".daortiz" in message.content:
+        stack = card2numbers.Daortiz
+        await trainStack(message, stack)
+
     if ".redford" in message.content:
         stack = card2numbers.Redford
         await trainStack(message, stack)
@@ -56,6 +60,8 @@ async def on_message(message):
             stack = card2numbers.Memorandum
         elif message.channel.name == "mnemonica-stack":
             stack = card2numbers.Mnemonica
+        elif message.channel.name == "daortiz-stack":
+            stack = card2numbers.Daortiz
         elif message.channel.name == "redford-stack":
             stack = card2numbers.Redford
         elif message.channel.name == "aronson-stack":
