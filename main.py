@@ -35,26 +35,26 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if "/memorandum" in message.content:
+    if ".memorandum" in message.content:
         stack = card2numbers.Memorandum
         await trainStack(message, stack)
 
-    if "/mnemonica" in message.content:
+    if ".mnemonica" in message.content:
         stack = card2numbers.Mnemonica
         await trainStack(message, stack)
 
-    if "/redford" in message.content:
+    if ".redford" in message.content:
         stack = card2numbers.Redford
         await trainStack(message, stack)
 
-    if "/aronson" in message.content:
+    if ".aronson" in message.content:
         stack = card2numbers.Aronson
         await trainStack(message, stack)
 
-    if "/training" in message.content:
-        if message.channel.name == "memorandum":
+    if ".t" in message.content:
+        if message.channel.name == "memorandum-stack":
             stack = card2numbers.Memorandum
-        elif message.channel.name == "mnemonica":
+        elif message.channel.name == "mnemonica-stack":
             stack = card2numbers.Mnemonica
         elif message.channel.name == "redford-stack":
             stack = card2numbers.Redford
@@ -63,6 +63,11 @@ async def on_message(message):
         else:
             return
         await trainStack(message, stack)
+
+    if ".help" in message.content:
+        helpMessage = open(r"help.txt", "r")
+        await message.channel.send(helpMessage.read())
+        helpMessage.close()
 
 if __name__ == "__main__":
     TOKEN = os.environ["TOKEN"]
