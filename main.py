@@ -15,6 +15,8 @@ client = discord.Client(intents=intents)
 
 card2numbers = pd.read_excel("0-card-to-number.xlsx")
 
+recents = {}
+
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
@@ -31,8 +33,21 @@ async def trainStack(message, stack):
 
 @client.event
 async def on_message(message):
+    #print(message)
+    #print(message.type.value)
+    if message.reference != None:
+        print(message.reference)
+    #print(message.type)
+    if message.reference != None and message.reference.message_id in recents[message.channel.id]:
+        print("noice")
 
     if message.author == client.user:
+        if message.channel.id in recents and len(recents[message.channel.id]) == 5:
+            recents[message.channel.id].pop(0)
+        if message.channel.id not in recents:
+            recents[message.channel.id] = []
+        recents[message.channel.id].append(message.id)
+        print(recents)
         return
 
     if ".memorandum" in message.content:
@@ -76,11 +91,8 @@ async def on_message(message):
         helpMessage.close()
 
 if __name__ == "__main__":
-    TOKEN = os.environ["TOKEN"]
-    try:
-        keep_alive()
-        client.run(TOKEN)
-    except discord.errors.HTTPException:
-        print("\n\n\nBLOCKED BY RATE LIMITS\nRESTARTING NOW\n\n\n")
-        os.system("python3 restarter.py")
-        os.system('kill 1')
+    with open("token.txt", "r") as f:
+        TOKEN = f.read()
+    #TOKEN = os.environ["TOKEN"]
+    #keep_alive()
+    client.run(TOKEN)
